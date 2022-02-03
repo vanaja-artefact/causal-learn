@@ -17,7 +17,6 @@ def pc(data, alpha=0.05, indep_test=fisherz, stable=True, uc_rule=0, uc_priority
        background_knowledge=None, verbose=False, show_progress=True):
     if data.shape[0] < data.shape[1]:
         warnings.warn("The number of features is much larger than the sample size!")
-    print("here")
     if mvpc:
         if indep_test == fisherz:
             indep_test = mv_fisherz
