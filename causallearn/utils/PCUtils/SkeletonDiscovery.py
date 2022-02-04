@@ -131,6 +131,7 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                 if (f_node == "X8" or t_node == "X8" ) and background_knowledge:
                     print(f_node,"->",t_node,background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()))
                 if background_knowledge and not background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()):
+                    print(f_node," removing ->",t_node)
                     cg.G.remove_edge(edge1)
 
     if show_progress: pbar.close()
