@@ -112,9 +112,9 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                             append_value(cg.sepset, y, x, S)
                             break
                         else:
-                            if not background_knowledge.is_required(cg.G.nodes[x], cg.G.nodes[y])
+                            if not background_knowledge.is_required(cg.G.nodes[x], cg.G.nodes[y]):
                                 edge_removal.append((x, y))  # after all conditioning sets at
-                            if not background_knowledge.is_required(cg.G.nodes[y], cg.G.nodes[x])
+                            if not background_knowledge.is_required(cg.G.nodes[y], cg.G.nodes[x]):
                                 edge_removal.append((y, x))  # depth l have been considered
                             for s in S:
                                 sepsets.add(s)
