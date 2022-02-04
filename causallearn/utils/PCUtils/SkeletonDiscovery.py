@@ -134,9 +134,12 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                 t_node = cg.G.nodes[y].get_name()
                 if (f_node == "X8" or t_node == "X8" ) and background_knowledge:
                     print(f_node,"->",t_node,background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()))
-                if background_knowledge and not background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()):
-                    print(f_node," removing ->",t_node)
-                    cg.G.remove_edge(edge1)
+                if background_knowledge:
+                    from_to_req = background_knowledge.is_required(edge1.get_node1(), edge1.get_node2())
+                    to_from_req = background_knowledge.is_required(edge1.get_node2(), edge1.get_node2())
+                    if not (from_to_req or to_from_req):
+                        print(f_node," removing ->",t_node)
+                        cg.G.remove_edge(edge1)
         for edge in cg.G.get_graph_edges():
             f_node = edge.get_node1().get_name()
             t_node = edge.get_node2().get_name()
