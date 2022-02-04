@@ -104,23 +104,16 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                         if not stable:
                             edge1 = cg.G.get_edge(cg.G.nodes[x], cg.G.nodes[y])
                             if edge1 is not None:
-                                print(edge1.get_node1().get_name()," if ->",edge1.get_node2().get_name())
-                                if background_knowledge and not background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()):
-                                    cg.G.remove_edge(edge1)
+                                cg.G.remove_edge(edge1)
                             edge2 = cg.G.get_edge(cg.G.nodes[y], cg.G.nodes[x])
                             if edge2 is not None:
-                                print(edge1.get_node1().get_name()," if ->",edge1.get_node2().get_name())
-                                if background_knowledge and not background_knowledge.is_required(edge2.get_node1(), edge2.get_node2()):
-                                    cg.G.remove_edge(edge2)
+                                cg.G.remove_edge(edge2)
                             append_value(cg.sepset, x, y, S)
                             append_value(cg.sepset, y, x, S)
                             break
                         else:
-                            print(cg.G.nodes[x].get_name()," else ->",cg.G.nodes[x].get_name())
-                            if background_knowledge and not background_knowledge.is_required(cg.G.nodes[x], cg.G.nodes[y]):
-                                edge_removal.append((x, y))  # after all conditioning sets at
-                            if background_knowledge and not background_knowledge.is_required(cg.G.nodes[y], cg.G.nodes[x]):
-                                edge_removal.append((y, x))  # depth l have been considered
+                            edge_removal.append((x, y))  # after all conditioning sets at
+                            edge_removal.append((y, x))  # depth l have been considered
                             for s in S:
                                 sepsets.add(s)
                     else:
@@ -133,7 +126,12 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
         for (x, y) in list(set(edge_removal)):
             edge1 = cg.G.get_edge(cg.G.nodes[x], cg.G.nodes[y])
             if edge1 is not None:
-                cg.G.remove_edge(edge1)
+                f_node = cg.G.nodes[x].get_name()
+                t_node = cg.G.nodes[y].get_name()
+                if f_node is "X8" or t_node is "X8":
+                    print(f_node,"->",t_node,background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()))
+                if background_knowledge and not background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()):
+                    cg.G.remove_edge(edge1)
 
     if show_progress: pbar.close()
 
