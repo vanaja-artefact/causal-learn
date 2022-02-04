@@ -135,5 +135,6 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                     cg.G.remove_edge(edge1)
 
     if show_progress: pbar.close()
-
+    for edge in cg.G.get_graph_edges():
+        print("final edges",edge)
     return cg
