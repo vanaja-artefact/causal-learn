@@ -122,7 +122,7 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                 append_value(cg.sepset, y, x, tuple(sepsets))
 
         if show_progress: pbar.refresh()
-
+        print(set(edge_removal))
         for (x, y) in list(set(edge_removal)):
             edge1 = cg.G.get_edge(cg.G.nodes[x], cg.G.nodes[y])
             if edge1 is not None:
