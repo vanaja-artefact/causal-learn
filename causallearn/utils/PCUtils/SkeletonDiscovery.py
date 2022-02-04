@@ -136,7 +136,7 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                     print(f_node,"->",t_node,background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()))
                 if background_knowledge:
                     from_to_req = background_knowledge.is_required(edge1.get_node1(), edge1.get_node2())
-                    to_from_req = background_knowledge.is_required(edge1.get_node2(), edge1.get_node2())
+                    to_from_req = background_knowledge.is_required(edge1.get_node2(), edge1.get_node1())
                     if not (from_to_req or to_from_req):
                         print(f_node," removing ->",t_node)
                         cg.G.remove_edge(edge1)
