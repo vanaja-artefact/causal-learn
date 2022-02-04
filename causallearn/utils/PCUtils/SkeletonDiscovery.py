@@ -103,17 +103,19 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                         if verbose: print('%d ind %d | %s with p-value %f\n' % (x, y, S, p))
                         if not stable:
                             edge1 = cg.G.get_edge(cg.G.nodes[x], cg.G.nodes[y])
-                            if edge1 is not None:
+                            if edge1 is not None  and not background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()):
                                 cg.G.remove_edge(edge1)
                             edge2 = cg.G.get_edge(cg.G.nodes[y], cg.G.nodes[x])
-                            if edge2 is not None:
+                            if edge2 is not None  and not background_knowledge.is_required(edge2.get_node1(), edge2.get_node2()):
                                 cg.G.remove_edge(edge2)
                             append_value(cg.sepset, x, y, S)
                             append_value(cg.sepset, y, x, S)
                             break
                         else:
-                            edge_removal.append((x, y))  # after all conditioning sets at
-                            edge_removal.append((y, x))  # depth l have been considered
+                            if not background_knowledge.is_required(cg.G.nodes[x], cg.G.nodes[y])
+                                edge_removal.append((x, y))  # after all conditioning sets at
+                            if not background_knowledge.is_required(cg.G.nodes[y], cg.G.nodes[x])
+                                edge_removal.append((y, x))  # depth l have been considered
                             for s in S:
                                 sepsets.add(s)
                     else:
