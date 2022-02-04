@@ -122,14 +122,13 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                 append_value(cg.sepset, y, x, tuple(sepsets))
 
         if show_progress: pbar.refresh()
-        print(set(edge_removal))
+
         for (x, y) in list(set(edge_removal)):
             edge1 = cg.G.get_edge(cg.G.nodes[x], cg.G.nodes[y])
             if edge1 is not None:
                 f_node = cg.G.nodes[x].get_name()
                 t_node = cg.G.nodes[y].get_name()
-                print(f_node, t_node)
-                if f_node == "X8" or t_node == "X8":
+                if f_node == "X8" or t_node == "X8" and background_knowledge:
                     print(f_node,"->",t_node,background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()))
                 if background_knowledge and not background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()):
                     cg.G.remove_edge(edge1)
