@@ -126,7 +126,7 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
             f_node = edge.get_node1().get_name()
             t_node = edge.get_node2().get_name()
             if (f_node == "X8" or t_node == "X8" ):
-                print("final edges rem",edge)
+                print("final edges bfr rem",edge)
         for (x, y) in list(set(edge_removal)):
             edge1 = cg.G.get_edge(cg.G.nodes[x], cg.G.nodes[y])
             if edge1 is not None:
@@ -137,6 +137,11 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                 if background_knowledge and not background_knowledge.is_required(edge1.get_node1(), edge1.get_node2()):
                     print(f_node," removing ->",t_node)
                     cg.G.remove_edge(edge1)
+        for edge in cg.G.get_graph_edges():
+            f_node = edge.get_node1().get_name()
+            t_node = edge.get_node2().get_name()
+            if (f_node == "X8" or t_node == "X8" ):
+                print("final edges aft rem",edge)
 
     if show_progress: pbar.close()
     for edge in cg.G.get_graph_edges():
