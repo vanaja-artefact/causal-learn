@@ -22,6 +22,7 @@ def orient_by_background_knowledge(cg, background_knowledge):
             'cg must be type of CausalGraph and background_knowledge must be type of BackgroundKnowledge. cg = ' + str(
                 type(cg)) + ' background_knowledge = ' + str(type(background_knowledge)))
     for edge in cg.G.get_graph_edges():
+        print("before BGKOrient method", edge)
         if cg.G.is_undirected_from_to(edge.get_node1(), edge.get_node2()):
             print("in BGKOrient method", edge)
             if background_knowledge.is_forbidden(edge.get_node2(), edge.get_node1()):
