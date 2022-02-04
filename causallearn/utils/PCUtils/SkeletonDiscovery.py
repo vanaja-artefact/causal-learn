@@ -140,6 +140,8 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
                     if not (from_to_req or to_from_req):
                         print(f_node," removing ->",t_node)
                         cg.G.remove_edge(edge1)
+                else:
+                    cg.G.remove_edge(edge1)
         for edge in cg.G.get_graph_edges():
             f_node = edge.get_node1().get_name()
             t_node = edge.get_node2().get_name()
