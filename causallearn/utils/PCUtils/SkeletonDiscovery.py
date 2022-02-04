@@ -123,7 +123,10 @@ def skeleton_discovery(data, alpha, indep_test, stable=True, background_knowledg
 
         if show_progress: pbar.refresh()
         for edge in cg.G.get_graph_edges():
-            print("final edges",edge)
+            f_node = edge.get_node1().get_name()
+            t_node = edge.get_node2().get_name()
+            if (f_node == "X8" or t_node == "X8" ):
+                print("final edges rem",edge)
         for (x, y) in list(set(edge_removal)):
             edge1 = cg.G.get_edge(cg.G.nodes[x], cg.G.nodes[y])
             if edge1 is not None:
